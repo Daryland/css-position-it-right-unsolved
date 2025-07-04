@@ -9,3 +9,10 @@ document.addEventListener('scroll', () => {
     ? agreeBtn.removeAttribute('disabled')
     : agreeBtn.setAttribute('disabled', `true`);
 });
+
+// Navigation button
+agreeBtn.addEventListener('click', (e) => {
+  // const confirmNavigation = confirm('Thank you for agreeing to our terms! Navigate back to the main page?');
+  // if (confirmNavigation) {
+    window.location.href = '/';
+  });

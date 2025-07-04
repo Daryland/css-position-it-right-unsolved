@@ -1,8 +1,17 @@
+/* Legal Page Exercise */
+
+/* Page heading container "pinned" in the top right beneath the header and take the full width */
 .legal-header {
   background-color: #e2e2e2;
   padding: 30px;
-  margin-top: 60px;
+  margin-top: 60px; /* To be beneath the main fixed header defined in styles.css */
   width: 100%;
+  position: fixed; /* Pinned to the viewport */
+  top: 0; /* Aligns to the top of the viewport */
+  left: 0;
+  right: 0;
+  z-index: 5; /* Ensure it's above main content but potentially below the main exercise-header (which has z-index 10) */
+  box-sizing: border-box; /* Include padding in width calculation */
 }
 
 .legal-header h1 {
@@ -11,13 +20,19 @@
   margin: 0 auto;
 }
 
+/* Main content area adjustment to prevent obscuring by fixed header and legal header */
 main {
+  /* The 60px is for .exercise-header, the next 60px is for .legal-header height + 30px padding on top/bottom = 120px */
+  /* Total height of fixed top elements = 60px (exercise-header) + 120px (legal-header height + padding) = 180px */
+  padding-top: calc(60px + 60px + 30px); /* Fixed header height + legal-header height + its top padding */
+  padding-bottom: 70px; /* Adjust padding for fixed footer min-height */
+  box-sizing: border-box;
 }
 
 section {
   display: flex;
   gap: 30px;
-  position: relative;
+  position: relative; /* Parent for sticky section-label */
   border-bottom: 1px solid grey;
   padding: 30px;
   max-width: 900px;
@@ -25,11 +40,18 @@ section {
   color: white;
 }
 
+/* Section label should stay fixed in its parent while the user is scrolling through the current section */
 .section-label {
   width: 100%;
+  max-width: 200px; /* Give it a max-width to not take full section width initially */
   background-color: #2b2d3b;
   height: max-content;
   padding: 10px 16px;
+  position: sticky; /* Sticky positioning */
+  /* Top value needs to be below the fixed exercise-header (60px) and fixed legal-header (60px height + 30px padding top) */
+  top: calc(60px + 60px + 30px + 20px); /* 60px (exercise-header) + 60px (legal-header height) + 30px (legal-header padding) + 20px (additional margin) */
+  align-self: flex-start; /* Align to the top of its flex container */
+  box-sizing: border-box;
 }
 
 .document-content {
@@ -52,6 +74,7 @@ section {
   line-height: 28px;
 }
 
+/* Footer anchored to the bottom of the viewport, ensuring it remains visible even while scrolling */
 footer {
   display: flex;
   align-items: center;
@@ -59,6 +82,12 @@ footer {
   background-color: #e2e2e2;
   padding: 0 30px;
   min-height: 70px;
+  position: fixed; /* Anchored to the bottom */
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10; /* Ensure it's on top of content */
+  box-sizing: border-box;
 }
 
 .footer-content {
